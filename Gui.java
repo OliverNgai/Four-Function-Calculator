@@ -31,17 +31,19 @@ public class Gui implements ActionListener{
 	JButton buttonMultiply = new JButton ("*");
 	JButton buttonDivide = new JButton ("/");
 	JButton buttonClear = new JButton ("Clear");
+	JButton buttonDot = new JButton (".");
 	
 	public Gui() {
 JFrame frame = new JFrame("JFrame Example");
 		
-		frame.setSize(400, 400);
+		frame.setSize(400, 500);
 		
 		inputone.setEditable(false);
 		inputtwo.setEditable(false);
 		function.setEditable(false);
 		finale.setEditable(false);
 		
+		buttonDot.addActionListener(this);
 		buttonZero.addActionListener(this);
 		buttonOne.addActionListener(this);
 		buttonTwo.addActionListener(this);
@@ -65,9 +67,9 @@ JFrame frame = new JFrame("JFrame Example");
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				int num1= Integer.parseInt(inputone.getText());
-				int num2= Integer.parseInt(inputtwo.getText());
-				int sol= 0;
+				double num1= Double.parseDouble(inputone.getText());
+				double num2= Double.parseDouble(inputtwo.getText());
+				double sol= 0;
 				
 				if(function.getText().equals( "+")) {
 					sol=num1+num2;
@@ -89,7 +91,7 @@ JFrame frame = new JFrame("JFrame Example");
 		});
 		
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(5,4));
+		panel.setLayout(new GridLayout(6,4));
 		
 		frame.add(panel);
 		panel.add(inputone);
@@ -108,6 +110,7 @@ JFrame frame = new JFrame("JFrame Example");
 		panel.add(buttonFour);
 		panel.add(buttonFive);
 		panel.add(buttonSix);
+		panel.add(buttonDot);
 		panel.add(buttonZero);
 		panel.add(buttonOne);
 		panel.add(buttonTwo);
@@ -164,6 +167,9 @@ JFrame frame = new JFrame("JFrame Example");
 		else if (e.getSource() == buttonNine) {
 			changeNum ("9");
 		}
+		else if (e.getSource() == buttonDot) {
+			changeNum (".");
+		}
 		else if (e.getSource() == buttonClear) {
 			inputone.setText("");
 			inputtwo.setText("");
@@ -191,7 +197,11 @@ JFrame frame = new JFrame("JFrame Example");
 		else {
 			temp=inputtwo.getText();
 		}
-		
+		if (i.equals(".") && temp.length()==0) {
+			temp+="0";
+		}
+				
+			
 		temp+=i; 
 		if (check==true) {
 			inputone.setText(temp);
